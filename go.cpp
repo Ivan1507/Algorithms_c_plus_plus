@@ -1,50 +1,43 @@
 #include <iostream>
-using std::cin;
-using std::cout;
-using std::endl;
-
-   void my_slightly_less_dumb_reallocation(int** source, unsigned int n_old, unsigned int n_new){
-    if(n_old==0&&n_new==1){
-        int *ns=new int[n_new];
-            delete *source;
-            *source=ns;
-    }
-    else if(*source==nullptr&&n_old==0&&n_new>0){
-            int *ns=new int[n_new];
-            delete *source;
-            *source=ns;
-    }
-    else if(n_old!=0&&n_new>n_old){
-           int *ns=new int[n_new];
-        for(int i=0;i<n_old;i++){
-            ns[i]=source[0][i];
+#include <vector>
+using namespace std;
+void generate_subarr(vector<int> A,int len_A,int pos_of_arr){
+    if(pos_of_arr==0){
+        cout<<A[pos_of_arr]<<'\n';
+        pos_of_arr+=1;
+        for(int i=0;i<pos_of_arr+1;i++){
+            cout<<A[i]<<" ";
         }
-        delete[] *source;
-       *source=ns;
+        cout<<endl;
+        generate_subarr(A,len_A,pos_of_arr);
     }
-    else if(n_old==1&&n_new==0){
-    delete[] *source;
+    else if(pos_of_arr<len_A-1){
+            cout<<A[pos_of_arr]<<'\n';
+            pos_of_arr+=1;
+        int i=0;
+        while(i!=pos_of_arr){
+            for(int j=i;j<pos_of_arr+1;j++){
+                cout<<A[j]<<" ";
+            }
+             cout<<endl;
+        i++;
+        }
+        generate_subarr(A,len_A,pos_of_arr);
+    }
+    else cout<<A[pos_of_arr]<<endl;
 }
-else if(n_old>n_new&&n_new!=0){
-    delete[] *source;
-}
-}
-int main() {
-    unsigned int n, i;
-    cin >> n;
-    int *a = NULL;
-    my_slightly_less_dumb_reallocation(&a, 0, n / 2);
-    for (i = 0; i < n / 2; i++)
-        cin >> a[i];
-    my_slightly_less_dumb_reallocation(&a, n / 2, n);
-    for (; i < n; i++)
-        cin >> a[i];
-    int sum = 0;
-    for (i = 0; i < n; i++)
-        sum += a[i];
-    cout << sum << endl;
-    my_slightly_less_dumb_reallocation(&a, n, n / 2);
-    my_slightly_less_dumb_reallocation(&a, n / 2, 0);
-    my_slightly_less_dumb_reallocation(&a, 0, 0);
-    return 0;
+
+int main(){
+    int top=0;
+    int n;
+    vector<int> A;
+    A.resize(top+1);
+    while(cin>>n){
+        A[top++]=n;
+        A.resize(top+1);
+    }
+    int index=0;
+    cout<<A.size()<<""
+    if(A.size()>2) generate_subarr(A,top,0);
+    else cout<<A[0];
 }
