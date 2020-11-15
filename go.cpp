@@ -37,7 +37,7 @@ int main(){
         A.resize(top+1);
     }
     int index=0;
-    cout<<A.size()<<""
+    cout<<A.size()<<"";
     if(A.size()>2) generate_subarr(A,top,0);
     else cout<<A[0];
 }
