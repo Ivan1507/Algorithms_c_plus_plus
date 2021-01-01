@@ -1,43 +1,37 @@
-#include <iostream>
+ #include <iostream>
+#include <queue>
+#include <deque>
 using namespace std;
-
 int main()
 {
- int n;
- cin>>n;
- int A[n];
- for(int i=0;i<n;i++){
-    cin>>A[i];
- }
- int ans1=0,ans2=0;
- int r=0;
- for(int i=0;i<n;i++){
-    if(A[i]==1){
-            for(int j=i+1;j<n;j++){
-                if(A[j]==2) {
-                        ans1=j-i;
-                        break;
+    int n;
+    cin>>n;
+    deque<int> deque1;
+
+char F[n];
+    for(int i=0;i<n;i++){
+        cin>>F[i];
+        if(F[i]=='+'){
+           int x;
+           cin>>x;
+          deque1.push_back(x);
+        }
+        if(F[i]=='*'){
+                int m;
+                cin>>m;
+                auto it=deque1.begin();
+                int s=deque1.size();
+                if(s==0) deque1.push_back(m);
+                else if(s%2==0)
+                    deque1.insert(it+s/2,m);
+                else deque1.insert(it+s/2+1,m);
                 }
-            }
-            for(int k=i-1;k>=0;k--){
-                if(A[k]==2){
-                        ans2=i-k;
-                        break;
-                }
-            }
-            if(!ans1 or !ans2){
-                    if(max(ans1,ans2)>r)
-                r=max(ans1,ans2);
-            }
-            else if(min(ans1,ans2)>r)
-                r=min(ans1,ans2);
-       //cout<<ans1<<'\t'<<ans2<<'\t';
-       ans1=0;
-       ans2=0;
+        if(F[i]=='-'){
+                cout<<deque1.front()<<endl;
+                deque1.pop_front();
+        }
     }
 
-    }
-    cout<<r;
+
+    return 0;
 }
-
-
