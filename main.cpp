@@ -1,37 +1,41 @@
- #include <iostream>
-#include <queue>
-#include <deque>
+#include <iostream>
+#include <stack>
+#include <math.h>
+#include <map>
+#include <vector>
 using namespace std;
-int main()
-{
+
+int main(){
     int n;
     cin>>n;
-    deque<int> deque1;
-
-char F[n];
+    int A[n];
+    int B[n];
+    bool truth[n];
     for(int i=0;i<n;i++){
-        cin>>F[i];
-        if(F[i]=='+'){
-           int x;
-           cin>>x;
-          deque1.push_back(x);
-        }
-        if(F[i]=='*'){
-                int m;
-                cin>>m;
-                auto it=deque1.begin();
-                int s=deque1.size();
-                if(s==0) deque1.push_back(m);
-                else if(s%2==0)
-                    deque1.insert(it+s/2,m);
-                else deque1.insert(it+s/2+1,m);
-                }
-        if(F[i]=='-'){
-                cout<<deque1.front()<<endl;
-                deque1.pop_front();
-        }
+            truth[i]=false;
+        cin>>A[i]>>B[i];
     }
-
-
-    return 0;
+    int ans=0;
+    for(int i=0;i<n;i++){
+         if(A[i]>=n||B[i]>=n) ans+=1;
+         else{
+            if(!B[i]){
+                    if(truth[n-A[i]-1])
+                ans+=1;
+                else truth[n-A[i]-1]=true;
+            }
+            else if(!A[i]){
+                if(truth[B[i]])
+                    ans+=1;
+                else truth[B[i]]=true;
+            }
+            else{
+                 int k=n-A[i]-1;
+                 if(B[i]!=k) ans+=1;
+                else if(truth[k]) ans+=1;
+                   else truth[k]=true;
+            }
+         }
+    }
+    cout<<n-ans;
 }
