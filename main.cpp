@@ -1,47 +1,87 @@
- #include <iostream>
- #include <vector>
- #include <math.h>
- #include <string>
- #include <string.h>
+#include <iostream>
+#include <vector>
 using namespace std;
+struct ListNode {
+     int val;
+   ListNode *next;
+ ListNode() : val(0), next(nullptr) {}
+ ListNode(int x) : val(x), next(nullptr) {}
+  ListNode(int x, ListNode *next) : val(x), next(next) {}
+ };
 
+void go_through(ListNode *p)
+{
+    while (p != nullptr) {
+        std::cout << p->val <<" ";
+        p = p->next;
+    }
+   std:: cout<<'\n';
+}
+
+void push_back(ListNode **head_ref,int data){
+ListNode *head=new ListNode;
+head->val=data;
+head->next=nullptr;
+(*head_ref)=head;
+}
+void append(ListNode **head,int data){
+ListNode *node=new ListNode;
+ListNode *bak=*head;
+node->val=data;
+node->next=nullptr;
+if(*head==nullptr){
+    *head=node;
+    return;
+}
+while(bak->next!=nullptr)
+    bak=bak->next;
+bak->next=node;
+return;
+}
+void delete_node(ListNode **head,int key){
+ListNode *tmp=*head;
+ListNode *prev=nullptr;
+if(tmp!=nullptr&&tmp->val==key){
+    *head=tmp->next;
+    delete tmp;
+    return;
+}
+else{
+while(tmp!=nullptr&&tmp->val!=key){
+        prev=tmp;
+    tmp=tmp->next;
+}
+prev->next=tmp->next;
+delete tmp;
+}
+
+}
+ListNode* deleteDuplicates(ListNode* head) {
+        ListNode *p=head;
+        while(head->next!=nullptr){
+                int t=head->val;
+                if(t==(head->next)->val){
+                delete_node(&p,t);
+                }
+                head=head->next;
+        }
+        return p;
+
+}
 int main()
 {
-    setlocale(LC_ALL, "Russian");
-    double Ti01=460;
-    double Ti02=360;
-    double Wi1=100;
-    double Wi2=150;
-    double Tj01=350;
-    double Tj02=300;
-    double Tjav1=400;
-    double Tjav2=340;
-    double Wj1=200;
-    double Wj2=150;
-    double qj1=10000;
-    double qj2=6000;
-    double q_=Wj1*(Tjav1-Tj01)+Wj2*(Tjav2-Tj02);
-    double Tav=(Wi1*Ti01+Wi2*Ti02-q_)/(Wi1+Wi2);
-    double sigma0=Wi1*(log(Tav/Ti01))+Wi2*(log(Tav/Ti02))
-    +Wj1*(log(Tjav1/Tj01))+Wj2*(log(Tjav2/Tj02));
-    double W2=Wi1+Wi2;
-    double A1=(Wj1-Wi1)/(Wi1*Wj1);
-    double K1=(1/A1)*log((Ti01-Tjav1)/(Ti02-Tj01));
-    double A2=(Wj2-W2)/(Wj2*W2);
-    double K2=(1/A2)*log((Ti02-Tjav2)/(Tav-Tj02));
-    double K=K1+K2;
-    double m=1-(1/K)*(Wi1*log(Ti01/Tav)+Wi2*log(Ti02/Tav));
-    double sigma=K*(pow(1-m,2))/m;
-    double nu=sigma/sigma0;
-    double W21=Wi2*(Wi1/(Wi1+Wi2));
-    double W22=Wi2*(Wi2/(Wi1+Wi2));
-    cout<<"Потребная теплота:"<<q_<<" Вт"<<endl;
-    cout<<"Температура горячих потоков на выходе:"<<Tav<<" K"<<endl;
-    cout<<"Производство энтропии:"<<sigma0<<" Вт/K"<<endl;
-    cout<<"Коэффициент теплообмена первого интервала:"<<K1<<" Вт/K"<<endl;
-    cout<<"Коэффициент теплообмена второго интервала:"<<K2<<" Вт/K"<<endl;
-    cout<<"Суммарный коээфициент теплообмена:"<<K<<" Вт/K"<<endl;
-    cout<<"Минимально возможное производство энтропии:"<<sigma<<" Вт/K"<<endl;
-    cout<<"W21:"<<W21<<" Вт/K\n"<<"W22:"<<W22<<" Вт/K";
+    ListNode A[5];
+    for(int i = 0; i < 5; i++) {
+        A[i].val = i+1;
+        A[i].next = A + i + 1;
+    }
+    A[4].next = nullptr;
+    A[3].val=5;
+    A[2].val=5;
+   ListNode *p=A;
+    go_through(p);
+    ListNode *k=deleteDuplicates(p);
+    go_through(k);
 
+    return 0;
 }
