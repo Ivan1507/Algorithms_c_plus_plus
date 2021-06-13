@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1620651383 source:c:\faster\main.cpp
+	<iostream>
+	<utility>
+	<memory>
+	<cassert>
+
+1603028317 source:c:\faster\src\animal.cpp
+	"Animal.h"
+
+1603028317 c:\faster\include\animal.h
+
