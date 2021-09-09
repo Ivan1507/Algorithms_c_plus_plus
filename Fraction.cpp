@@ -36,10 +36,8 @@ public:
 			this->denominator=(denominator/gcd);
 		}
     };
-    Fraction(int64_t num){
+    Fraction(int64_t num):numerator(num),denominator(1){
 		
-		this->numerator=num;
-		this->denominator=1;
 		
     }
     int64_t getnum() const{
@@ -176,6 +174,12 @@ int main(){
 	std::cout<<f;
 	Fraction sum(1);
 	sum+=f;
+	std::cout<<sum;
+	Fraction k(3,6);
+	std::cout<<k;
+	sum=-k;
+	std::cout<<sum;
+	sum*=f;
 	std::cout<<sum;
 	/*Fraction f2(12,18);
 	std::cout<<f2;
