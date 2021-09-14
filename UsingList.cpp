@@ -37,6 +37,45 @@ struct ListNode{
 		newNode->next=*head;
 		*head=newNode;
 	}
+	ListNode* insertionSortList(ListNode *head){
+		ListNode *start=head;
+		while(start->next!=nullptr){
+			ListNode *tmp=start->next;
+			
+			ListNode *first=head;
+			//std::cout<<first->val<<" ";
+			if(first->val>tmp->val){
+				ListNode *tmp1=tmp->next;
+				//std::cout<<tmp1->val<<'\n';
+				tmp->next=first;
+				start->next=tmp1;
+				head=tmp;
+				start=tmp;
+			}
+			else if(tmp->val<start->val){
+			while(tmp!=nullptr&&first->next!=tmp){
+				if(first->next->val>tmp->val){
+					ListNode *tmp1=tmp->next;
+					tmp->next=first->next;
+					first->next=tmp;
+					start->next=tmp1;
+					start=tmp;
+					//std::cout<<start->val<<" "<<first->val<<'\n';
+					//return head;
+					break;
+				}
+				//std::cout<<"DEBAG!\n";
+				first=first->next;
+				//std::cout<<"DEBAG@\n";
+			}
+			}
+			//return head;
+			//go_through(head);
+			//std::cout<<start->val<<'\n';
+			start=start->next;
+		}
+		return head;
+	}
 	void reorderList(ListNode *head){
 		if(head==nullptr||head->next==nullptr) return;
 		ListNode *lp=head;
@@ -113,15 +152,16 @@ int main(){
 	auto s=l.begin();
 	auto e=l.end();
 	ListNode *node=nullptr;
-	node->push_back(&node,1);
-	node->push_back(&node,2);
-	node->push_back(&node,3);
 	node->push_back(&node,4);
-	node->push_back(&node,5);
+	node->push_back(&node,2);
+	node->push_back(&node,1);
+	node->push_back(&node,3);
+        node->push_back(&node,9);
 	node->push_back(&node,6);
 	node->push_back(&node,7);
 	node->go_thr();
-	node->doMagic(node);
-	node->go_thr();
+	//node->doMagic(node);
+	ListNode *ans=node->insertionSortList(node);
+	ans->go_thr();
 	return 0;
 }
