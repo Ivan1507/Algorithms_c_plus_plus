@@ -15,14 +15,13 @@ void thirteen_gen(int len,int top,std::vector<char>& notation,std::string buff,u
 	}
 }
 int main(){
-	std::string s="aba";
 	std::vector<char> notation={'0','1','2','3','4','5','6','7','8','9','A','B','C'};//Это наша система исчиcления из 13 чисел
 	uint64_t all_num=0;
 	const int k=notation.size();//Количество таких чисел, что при перестановке они не меняюся
 	std::vector<char> bin_not={'0','1'};
 	const int k1=bin_not.size();
-	thirteen_gen(len,0,notation,"",all_num);//Считаем все возможные числа длины 6 в 13-ой системе счисления
+	thirteen_gen(len,0,notation,"",all_num);//Считаем все возможные числа длины 6 в 13-ой системе исчисления
 	uint64_t ans=(all_num-k)*len+k;// Формула для ответа, которую вывел на бумажке, выводилась на примере двоичных чисел
-	std::cout<<all_num<<"\n"<<ans<<'\n';
+	std::cout<<ans<<'\n';
 	return 0;
 }
